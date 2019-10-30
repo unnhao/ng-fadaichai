@@ -9,8 +9,15 @@
       <div class="tab-item" [ngClass]="{'active': tab==='config'}" (click)="changeTab('config')">CONFIG</div>
     </div>
     <div *ngIf="tab==='live'" class="tab-content">
-        <div class="live">
-          <img src="../../../assets/Pooh.jpg" alt="">
+      <div class="live">
+        <iframe [src]="iframeSrc" [width]="iframeWidth" [height]="iframeHeight" frameborder="0"></iframe>
+        <img *ngIf="!iframeSrc" src="../../../assets/Pooh.jpg" alt="">
+      </div>
+      <div class="communication">
+        <div class="refresh">
+          <div class="button button-refresh"><i class="fas fa-redo-alt"></i>
+            REFRESH
+          </div>
         </div>
         <div class="comments">
           <div class="comment">
@@ -66,6 +73,8 @@
           </div>
         </div>
       </div>
+
+    </div>
     <div *ngIf="tab === 'config'" class="tab-content config">
       <div class="list-config">
         <div class="config">

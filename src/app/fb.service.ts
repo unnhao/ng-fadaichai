@@ -12,6 +12,7 @@ export class FbService {
   account: Account;
   posts: Array<Post>;
   lives: Array<Live>;
+  live: Live;
 
   reload() {
     this.getAuth();
@@ -94,6 +95,25 @@ export class FbService {
     });
   }
 
+  setLive(live) {
+    this.live = live;
+  }
+
+  getLive() {
+    return this.live;
+  }
+
+  getLiveComments(liveid) {
+    return new Promise((resolve, reject) => {
+      const url = `https://graph.facebook.com/${liveid}?fields=comments&access_token=${this.account.access_token}`;
+      this.http.get(url).subscribe((response: any) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  }
+
   loginFB(): Promise<any> {
     return new Promise((resolve, reject) => {
       (window as any).FB.login((response) => {
@@ -115,6 +135,28 @@ export class FbService {
         reject(error);
       });
     });
+  }
+
+  formatIframe(ifrmaeTag: string): {
+    src: string;
+    width: string;
+    height: string;
+  } {
+    const iframe = ifrmaeTag;
+    const regEx = /(src|width|height)=["']([^"']*)["']/gi;
+    const res: {
+      src: string;
+      width: string;
+      height: string;
+    } = {
+      src: '',
+      width: '',
+      height: ''
+    };
+    res.src = iframe.match(regEx)[0].split('src=')[1].slice(1, -1);
+    res.width = iframe.match(regEx)[1].split('width=')[1].slice(1, -1);
+    res.height = iframe.match(regEx)[2].split('height=')[1].slice(1, -1);
+    return res;
   }
 }
 

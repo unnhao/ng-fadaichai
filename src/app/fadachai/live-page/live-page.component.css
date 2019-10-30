@@ -38,19 +38,28 @@ transform: scale(0.9);
   background: #FF6363;
   flex:1;
   height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tab-content .live img{
   width: 100%;
 }
 
-.tab-content .comments{
+.tab-content .communication{
   flex: 1;
+  margin-top: .25rem;
+  height: calc(100% - 2.5rem);
+}
+
+.tab-content .comments{
   margin-right: -.5rem;
   padding-right: .5rem;
   overflow-y: scroll;
   height: calc(100% - 2.25rem);
 }
+
 
 .tab-content .comments .comment{
   color: #FF6363;
@@ -128,3 +137,15 @@ transform: scale(0.9);
   margin: 0 .25rem;
 }
 
+.button-refresh{
+  font-size: 0.25rem;
+  margin-right: .17rem;
+  margin-bottom: .1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .15rem;
+}
+.button-refresh:hover{
+  transform: scale(0.9);
+}

@@ -30,4 +30,8 @@ export class LiveListComponent implements OnInit {
   getViewer(id) {
     return this.fbService.getAccountLiveViewer(id);
   }
+
+  onLiveClick(live) {
+    this.fbService.setLive(live);
+  }
 }
