@@ -1,0 +1,10 @@
+/* LIVE-LIST */
+.content.live-list .list-item{
+  background: #FF6363;
+  color: white;
+}
+
+.content.live-list .list-item:hover{
+  background: rgb(255, 60, 60);
+  color: white;
+}

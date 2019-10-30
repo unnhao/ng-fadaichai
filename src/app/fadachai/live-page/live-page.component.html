@@ -1,0 +1,91 @@
+<div class="app">
+  <app-menu></app-menu>
+  <div class="content live-list">
+    <div class="title live-title">
+      <h2>LIVE : SELL SOME STUFF</h2>
+    </div>
+    <div class="tab">
+      <div class="tab-item" [ngClass]="{'active': tab==='live'}" (click)="changeTab('live')">LIVE</div>
+      <div class="tab-item" [ngClass]="{'active': tab==='config'}" (click)="changeTab('config')">CONFIG</div>
+    </div>
+    <div *ngIf="tab==='live'" class="tab-content">
+        <div class="live">
+          <img src="../../../assets/Pooh.jpg" alt="">
+        </div>
+        <div class="comments">
+          <div class="comment">
+            <h4>LEE: +1</h4>
+            <div class="reply">
+              <i class="fas fa-comment-dots"></i>
+            </div>
+          </div>
+          <div class="comment">
+            <h4>WANG: +1</h4>
+            <div class="reply">
+              <i class="fas fa-comment-dots"></i>
+            </div>
+          </div>
+          <div class="comment">
+            <h4>LIN: +1</h4>
+            <div class="reply">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+          <div class="comment">
+            <h4>CHEN: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+          <div class="comment">
+            <h4>CHANG: +1</h4>
+          </div>
+        </div>
+      </div>
+    <div *ngIf="tab === 'config'" class="tab-content config">
+      <div class="list-config">
+        <div class="config">
+          <h4>FILTER：</h4>
+          <input type="text">
+        </div>
+        <div class="config">
+          <h4>REPLY POSTS : </h4>
+          <input type="text">
+        </div>
+        <div class="config">
+          <h4>REPLY MESSAGE :</h4>
+          <input type="text">
+        </div>
+      </div>
+      <div class="list-config-buttons">
+        <div class="button">SAVE</div>
+        <div class="button">CANCEL</div>
+      </div>
+    </div>
+  </div>
+  <app-info></app-info>
+</div>

@@ -1,0 +1,48 @@
+/* MENU */
+.menu{
+  background: linear-gradient(#15CFCF, #1B76A4);
+  color: white;
+  padding: .6rem;
+  border-radius: .25rem;
+  height: calc(100% - 0.8rem);
+  margin: .4rem;
+  max-width: 6rem;
+  flex: 2;
+}
+
+.menu h2{
+  font-size: .64rem;
+}
+.menu .list{
+  margin-top: .6rem;
+}
+.menu .list ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin: .4rem 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.menu .list ul li.active{
+  border-radius: .5rem 0 0 .5rem;
+  margin-left: -.3rem;
+  width: calc(100% + 1.2rem);
+  background: white;
+}
+.menu .list ul li.active a {
+  color: #00A3B5;
+  margin-left: -.6rem;
+}
+
+.menu .list ul li a{
+  font-size: .32rem;
+  color: white;
+  text-decoration: none;
+  transition: .3s;
+}
+.menu .list ul li a:hover{
+  transform: scale(.9);
+}

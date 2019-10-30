@@ -26,7 +26,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/sdk.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -63,7 +65,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Tethys-ng:build"
+            "browserTarget": "Tethys-ng:build",
+            "ssl": true,
+            "sslKey": "path to .key",
+            "sslCert": "path to .crt"
           },
           "configurations": {
             "production": {
@@ -120,6 +125,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "Tethys-ng"
 }

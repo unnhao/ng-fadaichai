@@ -1,0 +1,22 @@
+/* INFO */
+.info {
+  position: absolute;
+  right: .3rem;
+  bottom: .3rem;
+  display: flex;
+  flex-direction: row;
+}
+.info a {
+  display: inline-block;
+  font-size: .32rem;
+  letter-spacing: 3px;
+  color:#00B0C3;
+  text-decoration: none;
+  transition: .3s;
+}
+.info a:hover{
+  transform: scale(1.2);
+}
+.info h3{
+  padding: .1rem;
+}

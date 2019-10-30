@@ -1,1 +1,169 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Anton', 'Noto Sans TC', sans-serif;
+  font-style:italic;
+}
+app-root{
+  width:100%;
+  height: 100%;
+}
+html{
+  font-size: 625%;
+}
+html, body{
+  width: 100%;
+  height: 100%;
+}
+
+h1{
+  font-size: 1.28rem;
+}
+h2{
+  font-size: .6rem;
+}
+h3{
+  font-size: .32rem;
+}
+h4{
+  font-size: .28rem;
+}
+
+.button:hover{
+  transform: scale(1.1);
+}
+
+
+/* button */
+.button{
+  color: white;
+  padding: .1rem .1rem;
+  background: linear-gradient(#15CFCF, #1B76A4);
+  border-radius: .2rem;
+  cursor: pointer;
+  transition: .3s;
+}
+
+/* APP */
+.app{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+}
+
+
+/* content */
+.content{
+  flex: 10;
+  height: calc(100% - 0.8rem);
+  margin: .4rem;
+  letter-spacing: .1rem;
+  color: #00A3B5;
+  overflow: hidden;
+}
+
+.content .list{
+  overflow-y: scroll;
+  margin-right: -.25rem;
+  padding-right: .25rem;
+  height: calc(100% - 1.5rem);
+}
+
+.content .list .list-item{
+  border-radius: .25rem;
+  margin: .28rem 0;
+  padding: .28rem;
+  background: #E6E6E6;
+  transition: .3s;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+.content .list .list-item:hover{
+  transform: scale(0.99);
+  background:  #00A3B5;
+  color: white;
+}
+
+
+/*
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+
+  html{
+    font-size: 625%;
+  }
+
+}
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+  html{
+    font-size: 325%;
+  }
+
+}
+
+/*
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  html{
+    font-size: 225%;
+  }
+
+}
+
+/*
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+  html{
+    font-size: 225%;
+  }
+
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+  html{
+    font-size: 125%;
+  }
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+  html{
+    font-size: 72.5%;
+  }
+
+}

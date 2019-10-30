@@ -1,0 +1,9 @@
+<div class="pages" *ngIf="accounts">
+  <h2>YOUR PAGES</h2>
+  <!-- <div *ngFor="let post of posts; index as i;" class="sub-block sub-block-highlight"> -->
+
+  <div *ngFor="let page of accounts.data; index as i" class="button button-page" (click)="onPageClick(page)">
+    {{page.name}}
+  </div>
+</div>
+<app-info></app-info>

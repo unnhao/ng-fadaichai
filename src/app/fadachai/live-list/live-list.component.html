@@ -1,0 +1,20 @@
+<div class="app">
+  <app-menu></app-menu>
+  <div class="content live-list">
+    <div class="title">
+      <h2>LIVE LIST</h2>
+    </div>
+    <div class="list">
+      <div *ngIf="!lives.length" class="list-item">
+        <h4>NOT FOUND ANY LIVE VIDEO!!</h4>
+      </div>
+      <ng-container *ngIf="lives.length">
+        <div *ngFor="let live of lives" class="list-item" routerLink="/live-page" routerLinkActive="active">
+          <h4>正在直播 ： {{live.description}}</h4>
+          <h4>WATCHER: {{ live.viewer}}</h4>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <app-info></app-info>
+</div>

@@ -1,0 +1,130 @@
+
+/* LIVE-PAGE */
+
+.live-title{
+  color: #FF6363;
+}
+
+.tab{
+  display: flex;
+}
+.tab-item{
+  cursor: pointer;
+  font-size: .25rem;
+  letter-spacing: .05rem;
+  padding: .1rem .25rem;
+  margin: .25rem .25rem 0 0;
+  color:#FF6363;
+  transition: .3s;
+}
+.tab-item:hover{
+transform: scale(0.9);
+}
+.tab-item.active{
+  color: white;
+  border-radius: .25rem;
+  background: #FF6363;
+}
+
+.tab-content{
+  display: flex;
+  height: 100%;
+}
+
+.tab-content .live{
+  margin: .25rem .25rem .25rem 0;
+  padding: .5rem;
+  border-radius: .25rem;
+  background: #FF6363;
+  flex:1;
+  height: fit-content;
+}
+
+.tab-content .live img{
+  width: 100%;
+}
+
+.tab-content .comments{
+  flex: 1;
+  margin-right: -.5rem;
+  padding-right: .5rem;
+  overflow-y: scroll;
+  height: calc(100% - 2.25rem);
+}
+
+.tab-content .comments .comment{
+  color: #FF6363;
+  letter-spacing: .08rem;
+  border-radius: .25rem;
+  margin: .28rem 0;
+  padding: .28rem;
+  background: #E6E6E6;
+  transition: .3s;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tab-content .comments .comment .reply{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 0.4rem;
+  height: 0.4rem;
+  cursor: pointer;
+  transition: .3s;
+}
+.tab-content .comments .comment .reply:hover{
+  transform: scale(1.1);
+}
+.tab-content .comments .comment .reply i {
+  font-size: 0.4rem;
+  color: #FF6363
+}
+
+
+/* list-config */
+.tab-content.config{
+  flex-direction: column;
+}
+
+.list-config{
+  width: 100%;
+}
+
+.list-config .config{
+  display: flex;
+  align-items: center;
+  background: #E6E6E6;
+  width: 100%;
+  padding: 0.25rem 0.7rem;
+  border-radius: .25rem;
+  margin: 0.4rem 0;
+}
+
+.list-config .config h4{
+  white-space:nowrap;
+  margin-right: .25rem;
+}
+
+.list-config .config input{
+  border: none;
+  border-radius: .25rem;
+  width: 100%;
+  outline: none;
+  padding: .15rem .25rem;
+  color: #00A3B5;
+  letter-spacing: .1rem;
+}
+
+.list-config-buttons{
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+}
+.list-config-buttons .button{
+  font-size: .35rem;
+  margin: 0 .25rem;
+}
+
