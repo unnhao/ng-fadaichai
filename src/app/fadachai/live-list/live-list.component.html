@@ -11,7 +11,15 @@
       <ng-container *ngIf="lives.length">
         <div *ngFor="let live of lives" class="list-item" routerLink="/live-page" routerLinkActive="active"
           (click)="onLiveClick(live)">
-          <h4>正在直播 ： {{live.description}}</h4>
+          <h4>
+            <ng-container *ngIf="live.status === 'LIVE'; else elseTemplate">
+              LIVE
+            </ng-container>
+            <ng-template #elseTemplate>
+              VOD
+            </ng-template>
+            ： {{live.description}}
+          </h4>
           <h4>WATCHER: {{ live.viewer}}</h4>
         </div>
       </ng-container>

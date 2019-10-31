@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { HeroModule } from './hero/hero.module';
 import { FadachaiModule } from './fadachai/fadachai.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

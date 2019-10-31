@@ -1,0 +1,31 @@
+.alert{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 9;
+  padding: .25rem 1rem;
+  background: linear-gradient(#15CFCF, #1B76A4);
+  border-radius: .25rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: .2rem;
+  color: white;
+  flex-direction: column;
+}
+
+.title{
+  flex: 1;
+}
+
+.message{
+  margin-top: .2rem;
+  margin-bottom: .3rem;
+}
+.button{
+  display: inline-block;
+  letter-spacing: 5px;
+  width: fit-content;
+  padding: .2rem .8rem;
+  font-size: .32rem;
+}

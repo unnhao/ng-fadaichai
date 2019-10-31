@@ -82,6 +82,12 @@ transform: scale(0.9);
   cursor: pointer;
   transition: .3s;
 }
+.tab-content .comments .comment .reply.replied{
+  cursor: auto;
+}
+.tab-content .comments .comment .reply.replied i{
+  color: #00A3B5;
+}
 .tab-content .comments .comment .reply:hover{
   transform: scale(1.1);
 }
@@ -116,6 +122,7 @@ transform: scale(0.9);
 }
 
 .list-config .config input{
+  font-size: .25rem;
   border: none;
   border-radius: .25rem;
   width: 100%;

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages/pages.component';
 import { InfoComponent } from './info/info.component';
@@ -16,7 +17,8 @@ import { VipComponent } from './vip/vip.component';
   declarations: [PagesComponent, InfoComponent, PostListComponent, MenuComponent, LiveListComponent, LivePageComponent, AutoReplyComponent, VipComponent],
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ]
 })
 export class FadachaiModule { }

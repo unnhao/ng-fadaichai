@@ -107,6 +107,7 @@ export class FbService {
     return new Promise((resolve, reject) => {
       const url = `https://graph.facebook.com/${liveid}?fields=comments&access_token=${this.account.access_token}`;
       this.http.get(url).subscribe((response: any) => {
+        console.log(response);
         resolve(response);
       }, (error) => {
         reject(error);
@@ -136,6 +137,39 @@ export class FbService {
       });
     });
   }
+
+  replyComment(commentid, message) {
+    return new Promise((resolve, reject) => {
+      const formData: FormData = new FormData();
+      const url = `https://graph.facebook.com/v4.0/${commentid}/comments?access_token=${this.account.access_token}`;
+      formData.append('message', message);
+      formData.append('debug', 'all');
+      formData.append('format', 'json');
+      formData.append('pretty', '0');
+      formData.append('suppress_http_code', '1');
+      formData.append('transport', 'cors');
+      this.http.post(url, formData).subscribe((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  }
+
+  replyMessage(commentid, message) {
+    return new Promise((resolve, reject) => {
+      const formData: FormData = new FormData();
+      const url = `https://graph.facebook.com/v4.0/private_replies?access_token=${this.account.access_token}`;
+      formData.append('id', commentid);
+      formData.append('message', message);
+      this.http.post(url, formData).subscribe((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  }
+
 
   formatIframe(ifrmaeTag: string): {
     src: string;

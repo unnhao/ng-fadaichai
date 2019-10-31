@@ -54,4 +54,5 @@ export class Comment {
   };
   message: string;
   id: string;
+  replied?: boolean;
 }
