@@ -1,22 +1,28 @@
-import { Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+import io from 'socket.io-client';
+import { FbService } from '@/fb.service';
 
 @Component({
   selector: 'app-vip',
   templateUrl: './vip.component.html',
   styleUrls: ['./vip.component.css']
 })
-export class VipComponent implements OnInit, OnDestroy{
+export class VipComponent implements OnInit, OnDestroy {
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef, public fbService: FbService) { }
 
-  isLive = false;
+  isLive = true;
+  isCamera = false;
   isProduct = false;
   isCountdown = false;
   isBreakdown = false;
   isEffect = false;
+  isTest = false;
 
+  mediaRecorder = null;
   srcObject = null;
   throttle = false;
+  canvasObj = null;
   canvasCTX = null;
   videoObj = null;
   canvasWidth = 0;
@@ -24,15 +30,16 @@ export class VipComponent implements OnInit, OnDestroy{
   constraints = {
     audio: false,
     video: {
-    facingMode: 'user' // // Can be 'user' or 'environment' to access back or front camera (NEAT!)
+      facingMode: 'user' // // Can be 'user' or 'environment' to access back or front camera (NEAT!)
     }
   };
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy() {
     this.isLive = false;
     this.closeStream();
+    this.mediaRecorder.stop();
   }
 
   videoToggle() {
@@ -44,6 +51,7 @@ export class VipComponent implements OnInit, OnDestroy{
         this.throttle = false;
       }, 1000);
     }
+
     this.isLive = !this.isLive;
     if (this.isLive) {
       this.openSteam();
@@ -51,10 +59,14 @@ export class VipComponent implements OnInit, OnDestroy{
       this.closeStream();
     }
   }
+
   openSteam() {
     this.closeStream();
     navigator.mediaDevices.getUserMedia(this.constraints).then((stream) => {
       this.srcObject = stream;
+      this.openLiveStream();
+    }).catch((error) => {
+      console.warn(error);
     });
   }
 
@@ -66,8 +78,42 @@ export class VipComponent implements OnInit, OnDestroy{
     }
   }
 
+  openLiveStream() {
+    this.fbService.grabliveSteam('測試').then((response: any) => {
+      this.openLiveStreamSocket(response.stream_url);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  openLiveStreamSocket(streamUrl) {
+    const url = 'https://fadai-test.herokuapp.com/';
+    const socket = io(url, {
+      query: { streamUrl }
+    });
+    const mediaStream = this.canvasObj.captureStream(30); // 30 FPS
+    this.canvasWidth = 500;
+    this.canvasHeight = 500;
+
+    this.mediaRecorder = new (window as any).MediaRecorder(mediaStream, {
+      mimeType: 'video/webm;codecs=h264',
+      videoBitsPerSecond: 3000000
+    });
+
+    this.mediaRecorder.addEventListener('dataavailable', (e) => {
+      socket.emit('message', e.data);
+    });
+
+    this.mediaRecorder.addEventListener('stop', () => {
+      socket.close();
+    });
+
+    this.mediaRecorder.start(1000);
+  }
+
   videoInit($event) {
-    this.canvasCTX = this.elementRef.nativeElement.querySelector('#liveCanvas').getContext('2d');
+    this.canvasObj = this.elementRef.nativeElement.querySelector('#liveCanvas');
+    this.canvasCTX = this.canvasObj.getContext('2d');
     this.videoObj = this.elementRef.nativeElement.querySelector('#liveVideo');
     this.canvasWidth = this.videoObj.videoWidth;
     this.canvasHeight = this.videoObj.videoHeight;
@@ -78,7 +124,7 @@ export class VipComponent implements OnInit, OnDestroy{
       if (this.isLive) {
         this.canvasDraw();
         setTimeout(() => {
-            loop();
+          loop();
         }, 1000 / 30);
       }
     };
@@ -104,16 +150,16 @@ export class VipComponent implements OnInit, OnDestroy{
     // 馬賽克主要演算邏輯
     for (let r = 0; r < numTileRows; r++) {
       for (let c = 0; c < numTileCols; c++) {
-          const x = (c *  tileWidth) + (tileWidth / 2);
-          const y = (r * tileHeight) + (tileHeight / 2);
-          const pos = (Math.floor(y) * (this.canvasWidth * 4)) + (Math.floor(x) * 4);
-          // 取得顏色
-          const red = pixels[pos];
-          const green = pixels[pos + 1];
-          const blue = pixels[pos + 2];
-          // 重新填滿色塊
-          ctx.fillStyle = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
-          ctx.fillRect(x - (tileWidth / 2), y - (tileHeight / 2), tileWidth, tileHeight);
+        const x = (c * tileWidth) + (tileWidth / 2);
+        const y = (r * tileHeight) + (tileHeight / 2);
+        const pos = (Math.floor(y) * (this.canvasWidth * 4)) + (Math.floor(x) * 4);
+        // 取得顏色
+        const red = pixels[pos];
+        const green = pixels[pos + 1];
+        const blue = pixels[pos + 2];
+        // 重新填滿色塊
+        ctx.fillStyle = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+        ctx.fillRect(x - (tileWidth / 2), y - (tileHeight / 2), tileWidth, tileHeight);
       }
     }
   }

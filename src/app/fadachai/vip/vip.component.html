@@ -8,7 +8,8 @@
       <div class="live">
         <ng-container *ngIf="isLive; else elseTemplate">
           <canvas id="liveCanvas" [width]="canvasWidth" [height]="canvasHeight"></canvas>
-          <video id="liveVideo" (loadedmetadata)="videoInit($event)" (play)="videoPlay($event)" [autoplay]="isLive" [muted]="isLive" [srcObject]="srcObject"></video>
+          <video id="liveVideo" (loadedmetadata)="videoInit($event)" (play)="videoPlay($event)" [autoplay]="isLive"
+            [muted]="isLive" [srcObject]="srcObject"></video>
         </ng-container>
         <ng-template #elseTemplate>
           <img src="../../../assets/Pooh.jpg" alt="">
@@ -17,16 +18,32 @@
       <div class="setting">
         <div class="feature">
           <div class="status">
+            <h2>{{isTest ? 'ON' : 'OFF'}}</h2>
+          </div>
+          <div class="feature-button">
+            <div class="button" (click)="isTest = !isTest; onClicktest()">GO TEST</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="status">
+            <h2>{{isCamera ? 'ON' : 'OFF'}}</h2>
+          </div>
+          <div class="feature-button">
+            <div class="button" (click)="isCamera = !isCamera;">GO CAMERA</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="status">
             <h2>{{isLive ? 'ON' : 'OFF'}}</h2>
           </div>
           <div class="feature-button">
-              <div class="button" (click)="videoToggle()">GO LIVE</div>
-            </div>
+            <div class="button" (click)="videoToggle()">GO LIVE</div>
+          </div>
         </div>
         <div class="feature">
-            <div class="status">
-              <h2>{{isProduct ? 'ON' : 'OFF'}}</h2>
-            </div>
+          <div class="status">
+            <h2>{{isProduct ? 'ON' : 'OFF'}}</h2>
+          </div>
           <div class="feature-button">
             <div class="button" (click)="isProduct = !isProduct">SET PRODUCT</div>
           </div>
@@ -44,17 +61,17 @@
             <h2>{{isBreakdown ? 'ON' : 'OFF'}}</h2>
           </div>
           <div class="feature-button">
-              <div class="button" (click)="isBreakdown = !isBreakdown">BREAKTIME</div>
-            </div>
+            <div class="button" (click)="isBreakdown = !isBreakdown">BREAKTIME</div>
+          </div>
         </div>
         <div class="feature">
-            <div class="status">
-              <h2>{{isEffect ? 'ON' : 'OFF'}}</h2>
-            </div>
-            <div class="feature-button">
-                <div class="button" (click)="isEffect = !isEffect">EFFECT</div>
-              </div>
+          <div class="status">
+            <h2>{{isEffect ? 'ON' : 'OFF'}}</h2>
           </div>
+          <div class="feature-button">
+            <div class="button" (click)="isEffect = !isEffect">EFFECT</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

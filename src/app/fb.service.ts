@@ -97,6 +97,7 @@ export class FbService {
 
   setLive(live) {
     this.live = live;
+    console.log(this.live);
   }
 
   getLive() {
@@ -169,6 +170,21 @@ export class FbService {
       });
     });
   }
+
+  grabliveSteam(description) {
+    return new Promise((resolve, reject) => {
+      const formData: FormData = new FormData();
+      const url = `https://graph.facebook.com/v4.0/${this.account.id}/live_videos?access_token=${this.account.access_token}`;
+      formData.append('description', description);
+      formData.append('stop_on_delete_stream', 'true');
+      this.http.post(url, formData).subscribe((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  }
+
 
 
   formatIframe(ifrmaeTag: string): {
