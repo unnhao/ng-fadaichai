@@ -11,14 +11,18 @@ export class VipComponent implements OnInit, OnDestroy {
 
   constructor(private elementRef: ElementRef, public fbService: FbService) { }
 
-  isLive = true;
-  isCamera = false;
+  isLive = false;
   isProduct = false;
   isCountdown = false;
   isBreakdown = false;
   isEffect = false;
-  isTest = false;
 
+  imageObj = null;
+  imageLoaded = false;
+
+  countdownLock = false;
+  countdownNum = 30;
+  productPos = null;
   mediaRecorder = null;
   srcObject = null;
   throttle = false;
@@ -27,6 +31,7 @@ export class VipComponent implements OnInit, OnDestroy {
   videoObj = null;
   canvasWidth = 0;
   canvasHeight = 0;
+
   constraints = {
     audio: false,
     video: {
@@ -39,7 +44,9 @@ export class VipComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.isLive = false;
     this.closeStream();
-    this.mediaRecorder.stop();
+    if (this.mediaRecorder) {
+      this.mediaRecorder.stop();
+    }
   }
 
   videoToggle() {
@@ -79,7 +86,7 @@ export class VipComponent implements OnInit, OnDestroy {
   }
 
   openLiveStream() {
-    this.fbService.grabliveSteam('測試').then((response: any) => {
+    this.fbService.grabliveSteam('直播串接!!').then((response: any) => {
       this.openLiveStreamSocket(response.stream_url);
     }).catch((error) => {
       console.log(error);
@@ -92,9 +99,6 @@ export class VipComponent implements OnInit, OnDestroy {
       query: { streamUrl }
     });
     const mediaStream = this.canvasObj.captureStream(30); // 30 FPS
-    this.canvasWidth = 500;
-    this.canvasHeight = 500;
-
     this.mediaRecorder = new (window as any).MediaRecorder(mediaStream, {
       mimeType: 'video/webm;codecs=h264',
       videoBitsPerSecond: 3000000
@@ -134,10 +138,21 @@ export class VipComponent implements OnInit, OnDestroy {
   canvasDraw() {
     if (!this.canvasCTX) { return; }
     this.canvasCTX.drawImage(this.videoObj, 0, 0);
+    if (this.isProduct) {
+      this.canvasDrawImage(this.canvasCTX);
+    } else {
+      this.productPos = this.canvasHeight;
+    }
+    if (this.isCountdown) {
+      this.canvasDrawContdown(this.canvasCTX);
+    } else {
+      this.countdownNum = 30;
+    }
+    if (this.isBreakdown) {
+      this.canvasDrawBreak(this.canvasCTX);
+    }
     if (this.isEffect) { this.canvasEffect(this.canvasCTX); }
-    this.canvasDrawContdown(this.canvasCTX);
   }
-
   canvasEffect(ctx) {
     const numTileRows = 30;
     const numTileCols = 30;
@@ -164,9 +179,66 @@ export class VipComponent implements OnInit, OnDestroy {
     }
   }
 
+  canvasDrawNumber(ctx, num) {
+    ctx.save();
+    ctx.fillStyle = '#FF6363';
+    ctx.font = 'bold ' + this.canvasWidth / 10 + 'pt Arial';
+    ctx.fillText(num + 's', this.canvasWidth / 20, this.canvasWidth / 6 );
+    ctx.restore();
+  }
+
   canvasDrawContdown(ctx) {
-    ctx.fillStyle = 'Red';
-    ctx.font = '20pt Arial';
-    ctx.fillText('Sample String', 20, 40);
+    this.canvasDrawNumber(ctx, this.countdownNum);
+    if (this.countdownNum === 0) {
+      return;
+    }
+    if (!this.countdownLock) {
+      this.countdownLock = true;
+      setTimeout(() => {
+        this.countdownLock = false;
+        this.countdownNum -= 1;
+      }, 1000);
+    }
+  }
+
+  canvasDrawBreak(ctx) {
+    ctx.save();
+    ctx.fillStyle = '#FF6363';
+    ctx.fillRect(0, this.canvasHeight / 4, this.canvasWidth, this.canvasHeight / 2);
+    ctx.restore();
+    ctx.save();
+    ctx.fillStyle = '#FFF';
+    ctx.font = 'bold ' + this.canvasWidth / 10 + 'pt Arial';
+    ctx.fillText('休息中', this.canvasWidth / 2 - this.canvasWidth / 5, this.canvasHeight / 2);
+    ctx.restore();
+  }
+
+  canvasDrawImage(ctx) {
+    if (!this.imageLoaded) {
+      this.imageObj = new Image();
+      this.imageObj.onload = () => { this.imageLoaded = true; }
+      this.imageObj.src = '../../../assets/iphone.png';
+      this.productPos = this.canvasHeight;
+    } else {
+      if (this.productPos + (this.imageObj.height / this.imageObj.width) * this.canvasWidth / 3 > this.canvasHeight - 20) {
+        this.productPos -= 5;
+      } else {
+        ctx.save();
+        ctx.fillStyle = '#FF6363';
+        ctx.fillRect(0, this.canvasHeight - this.canvasHeight / 10, this.canvasWidth / 2, this.canvasHeight / 10);
+        ctx.restore();
+        ctx.save();
+        ctx.fillStyle = '#FFF';
+        ctx.font = 'bold ' + this.canvasWidth / 35 + 'pt Arial';
+        ctx.fillText('iphone8 NT: 19900', 0 + this.canvasWidth / 35 , this.canvasHeight - this.canvasHeight / 35);
+        ctx.restore();
+      }
+      ctx.drawImage(
+        this.imageObj,
+        this.canvasWidth / 2 - this.canvasWidth / 6,
+        this.productPos,
+        this.canvasWidth / 3,
+        (this.imageObj.height / this.imageObj.width) * this.canvasWidth / 3);
+    }
   }
 }

@@ -17,7 +17,11 @@
 .content .live img{
   width: 100%;
 }
-
+video{
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
 .content .setting{
   flex: 4;
   padding: .25rem .5rem;
