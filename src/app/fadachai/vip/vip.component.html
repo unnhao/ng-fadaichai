@@ -6,33 +6,55 @@
     </div>
     <div class="vip">
       <div class="live">
-        <img src="../../../assets/Pooh.jpg" alt="">
+        <ng-container *ngIf="isLive; else elseTemplate">
+          <canvas id="liveCanvas" [width]="canvasWidth" [height]="canvasHeight"></canvas>
+          <video id="liveVideo" (loadedmetadata)="videoInit($event)" (play)="videoPlay($event)" [autoplay]="isLive" [muted]="isLive" [srcObject]="srcObject"></video>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <img src="../../../assets/Pooh.jpg" alt="">
+        </ng-template>
       </div>
       <div class="setting">
         <div class="feature">
           <div class="status">
-            <h2>OFF</h2>
+            <h2>{{isLive ? 'ON' : 'OFF'}}</h2>
           </div>
-          <div class="button">GO LIVE</div>
+          <div class="feature-button">
+              <div class="button" (click)="videoToggle()">GO LIVE</div>
+            </div>
+        </div>
+        <div class="feature">
+            <div class="status">
+              <h2>{{isProduct ? 'ON' : 'OFF'}}</h2>
+            </div>
+          <div class="feature-button">
+            <div class="button" (click)="isProduct = !isProduct">SET PRODUCT</div>
+          </div>
         </div>
         <div class="feature">
           <div class="status">
-            <h2>OFF</h2>
+            <h2>{{isCountdown ? 'ON' : 'OFF'}}</h2>
           </div>
-          <div class="button">SET PRODUCT</div>
+          <div class="feature-button">
+            <div class="button" (click)="isCountdown = !isCountdown">COUNTDOWN</div>
+          </div>
         </div>
         <div class="feature">
           <div class="status">
-            <h2>OFF</h2>
+            <h2>{{isBreakdown ? 'ON' : 'OFF'}}</h2>
           </div>
-          <div class="button">COUNTDOWN</div>
+          <div class="feature-button">
+              <div class="button" (click)="isBreakdown = !isBreakdown">BREAKTIME</div>
+            </div>
         </div>
         <div class="feature">
-          <div class="status">
-            <h2>OFF</h2>
+            <div class="status">
+              <h2>{{isEffect ? 'ON' : 'OFF'}}</h2>
+            </div>
+            <div class="feature-button">
+                <div class="button" (click)="isEffect = !isEffect">EFFECT</div>
+              </div>
           </div>
-          <div class="button">BREAKTIME</div>
-        </div>
       </div>
     </div>
   </div>

@@ -4,29 +4,39 @@
   flex-direction: row;
 }
 .content .live{
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 4;
   background: #FF6363;
   padding: .5rem;
   margin: .5rem 0 0 0;
   border-radius: .25rem;
 }
+.content .live video,
+.content .live canvas,
 .content .live img{
   width: 100%;
-  height: 100%;
 }
+
 .content .setting{
-  flex: 1;
+  flex: 4;
   padding: .25rem .5rem;
 }
 .content .setting .feature{
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: row;
 }
 
+.content .setting .status{
+  flex: 1;
+}
+.content .setting .feature-button {
+  flex: 4;
+}
 .content .setting .button{
   font-size: .35rem;
+  width: fit-content;
   padding: .1rem .5rem;
   margin: .25rem .5rem;
 }
