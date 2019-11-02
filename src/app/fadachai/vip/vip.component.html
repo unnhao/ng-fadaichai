@@ -8,7 +8,7 @@
       <div class="live">
         <ng-container *ngIf="isLive; else elseTemplate">
           <canvas id="liveCanvas" [width]="canvasWidth" [height]="canvasHeight"></canvas>
-          <video id="liveVideo" (loadedmetadata)="videoInit($event)" (play)="videoPlay($event)" [autoplay]="isLive"
+          <video id="liveVideo" (loadedmetadata)="videoInit($event)" (play)="videoPlay()" [autoplay]="isLive"
             [muted]="isLive" [srcObject]="srcObject"></video>
         </ng-container>
         <ng-template #elseTemplate>

@@ -25,8 +25,8 @@ export class LivePageComponent implements OnInit {
   commentFilterEdit = '+1';
   replyPost = '購買連結已經私訊給你囉!!';
   replyPostEdit = '購買連結已經私訊給你囉!!';
-  replyMessage = 'https://flask-shopping.herokuapp.com/';
-  replyMessageEdit = 'https://flask-shopping.herokuapp.com/';
+  replyMessage = 'http://167.172.74.59:3000';
+  replyMessageEdit = 'http://167.172.74.59:3000';
 
   ngOnInit() {
     this.live = this.fbService.getLive();
